@@ -1,10 +1,12 @@
 FROM node:22-slim
 
-# Install git (required for npm to install OpenClaw dependencies)
-RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+# Install git and other dependencies in one layer
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends git ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install OpenClaw
-RUN npm install -g openclaw
+# Install OpenClaw (cache this layer - only rebuilds if OpenClaw version changes)
+RUN npm install -g openclaw@latest --omit=dev
 
 # Create workspace directory
 RUN mkdir -p /workspace

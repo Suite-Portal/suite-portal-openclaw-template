@@ -67,6 +67,6 @@ echo "✅ Created SOUL.md"
 mkdir -p memory
 echo "✅ Created memory directory"
 
-# Start OpenClaw
+# Start OpenClaw gateway in foreground mode (no systemd)
 echo "🎯 Starting OpenClaw gateway..."
-exec openclaw gateway start
+exec openclaw gateway --port 18789 --bind lan --verbose

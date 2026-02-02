@@ -72,5 +72,7 @@ node /sync-files.js
 
 # Start OpenClaw gateway in foreground mode (no systemd)
 # --allow-unconfigured: skip config requirement for containerized environments
-echo "🎯 Starting OpenClaw gateway..."
-exec openclaw gateway --port 18789 --bind lan --verbose --allow-unconfigured
+# Use PORT env var from Railway if set, otherwise default to 18789
+GATEWAY_PORT=${PORT:-18789}
+echo "🎯 Starting OpenClaw gateway on port $GATEWAY_PORT..."
+exec openclaw gateway --port $GATEWAY_PORT --bind lan --verbose --allow-unconfigured

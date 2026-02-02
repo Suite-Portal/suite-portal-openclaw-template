@@ -10,6 +10,10 @@ RUN npm install -g openclaw
 RUN mkdir -p /workspace
 WORKDIR /workspace
 
+# Create OpenClaw config directory and copy config
+RUN mkdir -p /root/.openclaw
+COPY openclaw.json /root/.openclaw/openclaw.json
+
 # Create startup script
 COPY start.sh /start.sh
 RUN chmod +x /start.sh

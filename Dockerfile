@@ -10,6 +10,9 @@ RUN npm install -g openclaw
 RUN mkdir -p /workspace
 WORKDIR /workspace
 
+# Copy file sync script
+COPY sync-files.js /sync-files.js
+
 # Create startup script
 COPY start.sh /start.sh
 RUN chmod +x /start.sh

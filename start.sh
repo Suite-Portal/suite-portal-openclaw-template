@@ -67,6 +67,9 @@ echo "✅ Created SOUL.md"
 mkdir -p memory
 echo "✅ Created memory directory"
 
+# Sync files from Supabase Storage
+node /sync-files.js
+
 # Start OpenClaw gateway in foreground mode (no systemd)
 # --allow-unconfigured: skip config requirement for containerized environments
 echo "🎯 Starting OpenClaw gateway..."

@@ -68,5 +68,6 @@ mkdir -p memory
 echo "✅ Created memory directory"
 
 # Start OpenClaw gateway in foreground mode (no systemd)
+# --allow-unconfigured: skip config requirement for containerized environments
 echo "🎯 Starting OpenClaw gateway..."
-exec openclaw gateway --port 18789 --bind lan --verbose
+exec openclaw gateway --port 18789 --bind lan --verbose --allow-unconfigured

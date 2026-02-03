@@ -70,9 +70,27 @@ echo "✅ Created memory directory"
 # Sync files from Supabase Storage
 node /sync-files.js
 
-# Start OpenClaw gateway in foreground mode (no systemd)
-# --allow-unconfigured: skip config requirement for containerized environments
-# Use PORT env var from Railway if set, otherwise default to 18789
+# Create OpenClaw configuration with token authentication
+mkdir -p /root/.openclaw
 GATEWAY_PORT=${PORT:-18789}
-echo "🎯 Starting OpenClaw gateway on port $GATEWAY_PORT..."
-exec openclaw gateway --port $GATEWAY_PORT --bind lan --verbose --allow-unconfigured
+cat > /root/.openclaw/openclaw.json <<EOF
+{
+  "gateway": {
+    "auth": {
+      "mode": "token",
+      "token": "${OPENCLAW_GATEWAY_TOKEN}"
+    },
+    "bind": "lan",
+    "port": ${GATEWAY_PORT}
+  },
+  "agent": {
+    "model": "${AGENT_MODEL:-anthropic/claude-sonnet-4-5}",
+    "thinking": "${AGENT_THINKING:-low}"
+  }
+}
+EOF
+echo "✅ Created OpenClaw configuration with token auth (port $GATEWAY_PORT)"
+
+# Start OpenClaw gateway
+echo "🎯 Starting OpenClaw gateway..."
+exec openclaw gateway --verbose

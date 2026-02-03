@@ -76,6 +76,7 @@ GATEWAY_PORT=${PORT:-18789}
 cat > /root/.openclaw/openclaw.json <<EOF
 {
   "gateway": {
+    "mode": "local",
     "port": ${GATEWAY_PORT},
     "bind": "lan",
     "auth": {

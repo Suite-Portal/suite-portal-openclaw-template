@@ -83,9 +83,13 @@ cat > /root/.openclaw/openclaw.json <<EOF
     "bind": "lan",
     "port": ${GATEWAY_PORT}
   },
-  "agent": {
-    "model": "${AGENT_MODEL:-anthropic/claude-sonnet-4-5}",
-    "thinking": "${AGENT_THINKING:-low}"
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "${AGENT_MODEL:-anthropic/claude-sonnet-4-5}"
+      },
+      "thinking": "${AGENT_THINKING:-low}"
+    }
   }
 }
 EOF

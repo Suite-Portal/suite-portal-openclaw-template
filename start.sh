@@ -100,6 +100,6 @@ cat > /root/.openclaw/openclaw.json <<EOF
 EOF
 echo "✅ Created OpenClaw configuration with token auth (port $GATEWAY_PORT)"
 
-# Start OpenClaw gateway
+# Start OpenClaw gateway with explicit token auth
 echo "🎯 Starting OpenClaw gateway..."
-exec openclaw gateway --verbose
+exec openclaw gateway --verbose --auth token --token "${OPENCLAW_GATEWAY_TOKEN}"

@@ -76,20 +76,24 @@ GATEWAY_PORT=${PORT:-18789}
 cat > /root/.openclaw/openclaw.json <<EOF
 {
   "gateway": {
+    "port": ${GATEWAY_PORT},
+    "bind": "lan",
     "auth": {
       "mode": "token",
       "token": "${OPENCLAW_GATEWAY_TOKEN}"
-    },
-    "bind": "lan",
-    "port": ${GATEWAY_PORT}
+    }
   },
   "agents": {
     "defaults": {
       "model": {
         "primary": "${AGENT_MODEL:-anthropic/claude-sonnet-4-5}"
       },
-      "thinking": "${AGENT_THINKING:-low}"
+      "workspace": "/workspace"
     }
+  },
+  "browser": {
+    "enabled": true,
+    "headless": true
   }
 }
 EOF
